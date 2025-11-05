@@ -61,7 +61,7 @@ void inorderTraversal(TreeNode* root) {
 }
 
 int main() {
-    TreeNode* root = new TreeNode(5);
+    TreeNode* root = new TreeNode(5); // creating the tree
     root->left = new TreeNode(3);
     root->right = new TreeNode(6);
     root->left->left = new TreeNode(2);
