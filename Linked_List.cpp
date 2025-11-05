@@ -1,4 +1,4 @@
-#include <cmath>
+include <cmath>
 #include <cstdio>
 #include <vector>
 #include <iostream>
@@ -14,9 +14,9 @@ struct Node
   Node * previous = nullptr;
   Node(int data)
   {
-    
+
   }
-  
+
 }
 void add_Node(int number, Node * root)
 {
@@ -28,6 +28,7 @@ Node * temp = root;
   Node * 
 
 }
+
 int main()
 {
   int q, operation, number;
@@ -36,11 +37,14 @@ int main()
   switch (operation)
   {
     case 1:
-
+//insert
       break;
     case 2:
+    //delete
       break;
     case 3:
+    //print min
       break;
   }
 }
+//idk good luck
