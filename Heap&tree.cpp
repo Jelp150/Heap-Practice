@@ -1,82 +1,98 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 struct TreeNode {
     int val;
     TreeNode* left;
     TreeNode* right;
-    bool deleted;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr), deleted(false) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
+// Insert a node into BST
+TreeNode* insertNode(TreeNode* root, int key) {
+    if (!root) return new TreeNode(key);
+    if (key < root->val)
+        root->left = insertNode(root->left, key);
+    else if (key > root->val)
+        root->right = insertNode(root->right, key);
+    return root;
+}
+
+// Find minimum value node in a subtree
+TreeNode* findMin(TreeNode* root) {
+    while (root && root->left)
+        root = root->left;
+    return root;
+}
+
+// Delete a node from BST
 TreeNode* deleteNode(TreeNode* root, int key) {
     if (!root) return nullptr;
 
     if (key < root->val) {
         root->left = deleteNode(root->left, key);
-    }
+    } 
     else if (key > root->val) {
         root->right = deleteNode(root->right, key);
-    }
+    } 
     else {
-        root->deleted = true;
-
-        if (root->left && root->right) {
-
-            TreeNode* successor = root->right;
-            while (successor->left) {
-                successor = successor->left;
-            }
-
-            root->val = successor->val;
-
-            successor->deleted = true;
-
-            root->right = deleteNode(root->right, successor->val);
+        // Node found
+        if (!root->left) {
+            TreeNode* temp = root->right;
+            delete root;
+            return temp;
+        } 
+        else if (!root->right) {
+            TreeNode* temp = root->left;
+            delete root;
+            return temp;
         }
-        else {
-            TreeNode* child = root->left ? root->left : root->right;
-            return child;
-        }
+
+        // Node with two children
+        TreeNode* successor = findMin(root->right);
+        root->val = successor->val;
+        root->right = deleteNode(root->right, successor->val);
     }
 
     return root;
 }
 
-void inorderTraversal(TreeNode* root) {
-    if (root) {
-        inorderTraversal(root->left);
-        if (!root->deleted) {
-            std::cout << root->val << " ";
-        }
-        inorderTraversal(root->right);
-    }
+// Find minimum value in the tree
+int findMinValue(TreeNode* root) {
+    TreeNode* minNode = findMin(root);
+    if (minNode) return minNode->val;
+    return -1; // empty tree case
 }
 
 int main() {
-    TreeNode* root = new TreeNode(5); // creating the tree
-    root->left = new TreeNode(3);
-    root->right = new TreeNode(6);
-    root->left->left = new TreeNode(2);
-    root->left->right = new TreeNode(4);
-    root->right->right = new TreeNode(7);
+    int Q;
+    cin >> Q;
+    if (Q==0) {
+        return 0;
+    
+    }
+    TreeNode* root = nullptr;
 
-    std::cout << "Before deletion: ";
-    inorderTraversal(root);
-    std::cout << std::endl;
+    while (Q--) {
+        int type;
+        cin >> type;
 
-    root = deleteNode(root, 6);
-
-    std::cout << "After deletion: ";
-    inorderTraversal(root);
-    std::cout << std::endl;
+        if (type == 1) {
+            int x;
+            cin >> x;
+            root = insertNode(root, x);
+        } 
+        else if (type == 2) {
+            int x;
+            cin >> x;
+            root = deleteNode(root, x);
+        } 
+        else if (type == 3) {
+            if (root)
+                cout << findMinValue(root) << endl;
+        }
+    }
 
     return 0;
 }
+//gpt certified
