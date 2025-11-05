@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <stack>
 using namespace std;
 
 int main()
@@ -11,23 +12,51 @@ int main()
     int queries;
     int command;
     int value;
-    priority_queue<int> q1;
+    priority_queue<int,vector<int>,greater<int>> q1;
     cin >> queries;
     while (queries != 0)
     {
-        cin >> command >> value;
+        cin >> command;
         if (command == 1)
         {
+            cin >> value;
             q1.push(value);
 
         }
         else if (command == 2)
         {
-            q1.pop(); 
+            cin >> value;
+            priority_queue<int,vector<int>,greater<int>> temp = q1;
+            vector<int> v_temp;
+            while (!temp.empty())
+            {
+                v_temp.push_back(temp.top());
+                temp.pop();
+            }
+            bool found = false;
+            int i = 0;
+            while (found != true)
+            
+            {
+                if (v_temp[i] == value)
+                {
+                    v_temp.erase(v_temp.begin() + i);   
+                    found = true;
+                }
+                i++;
+            
+            }
+            for (int k = 0; k < v_temp.size(); k++)
+            {
+                temp.push(v_temp[k]);
+            }
+            q1 = temp;
+           
         }
         else
         {
-            cout << value <<endl;
+            
+            cout << q1.top() <<endl;
         }
         queries--;
     }
