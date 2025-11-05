@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+
 using namespace std;
 
 int main()
@@ -15,9 +16,11 @@ int main()
     cin >> queries;
     while (queries != 0)
     {
-        cin >> command >> value;
+        cin >> command;
+
         if (command == 1)
         {
+            cin >> value;
             q1.push(value);
 
         }
