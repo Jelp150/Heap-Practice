@@ -1,0 +1,35 @@
+#include <cmath>
+#include <cstdio>
+#include <queue>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int queries;
+    int command;
+    int value;
+    queue<int> q1;
+    cin >> queries;
+    while(queries!= 0)
+    {
+        cin >> command >> value;
+        if(command == 1)
+        {
+            q1.push(value);
+            
+        }
+        else if (command==2) 
+        {
+            
+        }
+        else
+        {
+            
+        }
+        queries--;
+    }
+    return 0;
+}
