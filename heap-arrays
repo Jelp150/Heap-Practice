@@ -7,17 +7,23 @@ int main()
 {
 	vector <int> arr;
 	int num;
-
-	for (int i = 0; i < arr.size(); i++)
+	int operation; 
+	int q;
+	cin >> q;
+	
+	for (int i = 0; i < q; i++)
 	{
+		cin >> operation;
 		if (num == 1)
 		{
-          arr.push_back(); 
-
+		  cin >> num;
+          arr.push_back(num); 
+			
 		}
 		else if (num == 2)
 		{
-
+			cin >> num;
+			
 		}
 		else if (num == 3)
 		{
