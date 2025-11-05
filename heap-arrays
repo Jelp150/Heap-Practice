@@ -1,29 +1,51 @@
+#include<cmath>
 #include <iostream>
-#include<vector>
-
+#include <cstdio>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-int main()
-{
-	vector <int> arr;
-	int num;
+class MinHeap {
+    vector<int> h;
 
-	for (int i = 0; i < arr.size(); i++)
-	{
-		if (num == 1)
-		{
-          arr.push_back(); 
+    int p(int i){ return (i-1)/2; }
+    int l(int i){ return 2*i+1; }
+    int r(int i){ return 2*i+2; }
 
-		}
-		else if (num == 2)
-		{
+    void up(int i){
+        while(i && h[p(i)] > h[i])
+            swap(h[i], h[p(i)]), i = p(i);
+    }
 
-		}
-		else if (num == 3)
-		{
+    void down(int i){
+        int s = i, L = l(i), R = r(i);
+        if (L < h.size() && h[L] < h[s]) s = L;
+        if (R < h.size() && h[R] < h[s]) s = R;
+        if (s != i) swap(h[i], h[s]), down(s);
+    }
 
-		}
-	}
+public:
+    void insert(int v){ h.push_back(v); up(h.size()-1); }
 
+    void erase(int v){
+        auto it = find(h.begin(), h.end(), v);
+        if (it == h.end()) return;
+        int i = it - h.begin();
+        h[i] = h.back(); h.pop_back();
+        if (i < h.size()) up(i), down(i);
+    }
+
+    int getMin(){ return h.empty() ? -1 : h[0]; }
+};
+
+int main(){
+    MinHeap h;
+    int Q, t, v;
+    cin >> Q;
+    while (Q--){
+        cin >> t;
+        if (t == 1) cin >> v, h.insert(v);
+        else if (t == 2) cin >> v, h.erase(v);
+        else cout << h.getMin() << '\n';
+    }
 }
-
